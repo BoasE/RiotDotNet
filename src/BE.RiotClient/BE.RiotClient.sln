@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.HttpClient", "BE.Riot.HttpClient\BE.Riot.HttpClient.csproj", "{AE973407-E342-4AC3-8C88-B96E8D876A02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.Tests", "BE.Riot.Tests\BE.Riot.Tests.csproj", "{029C888D-38C8-4C49-A54F-D97104E4DE90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.Console", "BE.Riot.Console\BE.Riot.Console.csproj", "{39DA8163-50BF-40AC-9986-06D6539BF191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.EventSource", "BE.Riot.EventSource\BE.Riot.EventSource.csproj", "{231C41FA-96B1-4D8B-8AE2-38E4553A004D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{369926FC-DBDA-4ACD-BB20-1DCA3E871866}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourcing", "{4A4B4424-12EF-4397-AB19-1A086A537FEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.Domain", "BE.Riot.Domain\BE.Riot.Domain.csproj", "{A958BED6-B291-4EC1-B539-47347A046017}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE973407-E342-4AC3-8C88-B96E8D876A02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE973407-E342-4AC3-8C88-B96E8D876A02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE973407-E342-4AC3-8C88-B96E8D876A02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE973407-E342-4AC3-8C88-B96E8D876A02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{029C888D-38C8-4C49-A54F-D97104E4DE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{029C888D-38C8-4C49-A54F-D97104E4DE90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{029C888D-38C8-4C49-A54F-D97104E4DE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{029C888D-38C8-4C49-A54F-D97104E4DE90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39DA8163-50BF-40AC-9986-06D6539BF191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39DA8163-50BF-40AC-9986-06D6539BF191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39DA8163-50BF-40AC-9986-06D6539BF191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39DA8163-50BF-40AC-9986-06D6539BF191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{231C41FA-96B1-4D8B-8AE2-38E4553A004D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231C41FA-96B1-4D8B-8AE2-38E4553A004D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231C41FA-96B1-4D8B-8AE2-38E4553A004D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231C41FA-96B1-4D8B-8AE2-38E4553A004D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A958BED6-B291-4EC1-B539-47347A046017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A958BED6-B291-4EC1-B539-47347A046017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A958BED6-B291-4EC1-B539-47347A046017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A958BED6-B291-4EC1-B539-47347A046017}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE973407-E342-4AC3-8C88-B96E8D876A02} = {369926FC-DBDA-4ACD-BB20-1DCA3E871866}
+		{029C888D-38C8-4C49-A54F-D97104E4DE90} = {369926FC-DBDA-4ACD-BB20-1DCA3E871866}
+	EndGlobalSection
+EndGlobal
