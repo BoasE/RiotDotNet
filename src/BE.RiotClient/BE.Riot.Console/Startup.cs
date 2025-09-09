@@ -1,8 +1,12 @@
 ﻿using System.Net.Http.Headers;
+using BE.CQRS.Domain.Configuration;
+using BE.Riot.EventSource.Bootstrap;
 using BE.Riot.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 
 namespace BE.Riot.Console;
 
@@ -27,12 +31,19 @@ public static class Startup
         services.AddOptions();
         services.Configure<RiotAccountOptions>(configuration.GetSection("Riot:Account"));
 
-        services.AddServices();
+        services.AddServices(configuration);
         return services;
     }
 
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddLogging(builder =>
+        {
+            builder.AddConfiguration(configuration.GetSection("Logging"));
+            builder.AddConsole();
+     
+        });
+
         services.AddSingleton<IRiotClient>(sp =>
         {
             RiotAccountOptions opts = sp.GetRequiredService<IOptions<RiotAccountOptions>>().Value;
@@ -46,6 +57,10 @@ public static class Startup
             return new RiotHttpClient(opts.Host, opts.ApiKey);
         });
 
+        services.AddCqrs(configuration);
+        
+        
+        services.AddCqrsProjections(configuration);
         return services;
     }
 }

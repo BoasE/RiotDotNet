@@ -12,8 +12,8 @@ public static class RiotPathBuilder
         return string.Concat(host, PuuidBySummonerPath, summonerName, "/", tagName);
     }
 
-    public static string MatchesIdByPuuid(string host, string puuId)
+    public static string MatchesIdByPuuid(string host, string puuId, int count)
     {
-        return string.Concat(host, MatchesPath, "by-puuid/", puuId, "/ids");
+        return string.Concat(host, MatchesPath, "by-puuid/", puuId, "/ids?count=", count);
     }
 }

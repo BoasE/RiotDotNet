@@ -26,9 +26,9 @@ public sealed class RiotHttpClient : IRiotClient
     }
 
     /// <see cref="https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID"/>
-    public async Task<ISet<MatchId>> GetLatestMatchIdsByPuuId(string puuId)
+    public async Task<ISet<MatchId>> GetLatestMatchIdsByPuuId(string puuId, int count = 50)
     {
-        var url = RiotPathBuilder.MatchesIdByPuuid(_host, puuId);
+        var url = RiotPathBuilder.MatchesIdByPuuid(_host, puuId,count);
 
         var result = await _httpClient.GetAsync(url);
 

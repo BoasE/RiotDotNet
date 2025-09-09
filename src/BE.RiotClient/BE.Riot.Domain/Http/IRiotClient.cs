@@ -4,7 +4,7 @@ namespace BE.Riot;
 
 public interface IRiotClient
 {
-    Task<ISet<MatchId>> GetLatestMatchIdsByPuuId(string puuId);
+    Task<ISet<MatchId>> GetLatestMatchIdsByPuuId(string puuId,int count = 50);
 
     Task<GetPuuIdResult> GetPuuIdBy(string summonerName, string tagName);
 }

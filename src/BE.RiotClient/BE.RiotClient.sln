@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.Domain", "BE.Riot.Domain\BE.Riot.Domain.csproj", "{A958BED6-B291-4EC1-B539-47347A046017}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Riot.Events", "BE.Riot.Events\BE.Riot.Events.csproj", "{A7916CBE-779E-49F2-B101-0820E79CAF36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{A958BED6-B291-4EC1-B539-47347A046017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A958BED6-B291-4EC1-B539-47347A046017}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A958BED6-B291-4EC1-B539-47347A046017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7916CBE-779E-49F2-B101-0820E79CAF36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7916CBE-779E-49F2-B101-0820E79CAF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7916CBE-779E-49F2-B101-0820E79CAF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7916CBE-779E-49F2-B101-0820E79CAF36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AE973407-E342-4AC3-8C88-B96E8D876A02} = {369926FC-DBDA-4ACD-BB20-1DCA3E871866}

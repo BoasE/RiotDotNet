@@ -1,7 +1,9 @@
-﻿using BE.Riot;
+﻿using BE.CQRS.Domain;
+using BE.CQRS.Domain.Commands;
+using BE.Riot;
 using BE.Riot.Console;
+using BE.Riot.EventSource;
 using Microsoft.Extensions.DependencyInjection;
-
 
 var services = Startup.ConfigureServices();
 var provider = services.BuildServiceProvider();
@@ -18,7 +20,20 @@ var puuid = await client.GetPuuIdBy(summonerName, tagLine);
 if (!puuid.Found)
 {
     Console.WriteLine("User not found");
-    return;   
+    return;
 }
-var matches = await client.GetLatestMatchIdsByPuuId(puuid.Puiid.Value);
+
+var repo = provider.GetRequiredService<IDomainObjectRepository>();
+var bus = provider.GetRequiredService<ICommandBus>();
+if (!await repo.Exists<PlayerMatchHistoryDomainObject>(puuid.Puiid.Value))
+{
+    await bus.EnqueueAsync(new CreatePlayerHistory(puuid.Puiid.Value)
+    {
+        SummonerName = summonerName,
+        TagLine = tagLine,
+        PuuId = puuid.Puiid.Value
+    });
+}
+
+await bus.EnqueueAsync(new ReadPlayerMatchHistory(puuid.Puiid.Value));
 Console.WriteLine("Puuid: " + puuid.Puiid.Value);
