@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="BE.CQRS" Version="0.95.4-alpha" />
+      <PackageReference Include="MongoDB.Driver" Version="3.4.3" />
     </ItemGroup>
 
 </Project>

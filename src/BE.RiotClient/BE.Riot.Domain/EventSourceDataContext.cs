@@ -1,17 +1,17 @@
 using MongoDB.Driver;
 
-namespace BE.Learning.SharedKernel
+namespace BE.Riot
 {
-    public interface IDenormalizerContext
+    public interface IEventSourceData
     {
         IMongoDatabase Db { get; }
 
         IMongoClient Client { get; }
     }
 
-    public sealed class DenormalizerContext : IDenormalizerContext
+    public sealed class EventSourceData : IEventSourceData
     {
-        public DenormalizerContext(IMongoClient client, IMongoDatabase db)
+        public EventSourceData(IMongoClient client, IMongoDatabase db)
         {
             Client = client;
             Db = db;

@@ -3,7 +3,6 @@ using BE.CQRS.Di.AspCore;
 using BE.CQRS.Domain;
 using BE.CQRS.Domain.Configuration;
 using BE.CQRS.Domain.Denormalization;
-using BE.Learning.SharedKernel;
 using BE.Riot.EventSource.Denormalizer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +25,9 @@ namespace BE.Riot.EventSource.Bootstrap
             IMongoDatabase readDb = client.GetDatabase(readdb);
 
             var ctx = new DenormalizerContext(client, readDb);
+
             services.AddSingleton<IDenormalizerContext>(ctx);
+    
             services.AddSingleton<IProjectionRebuilder>(x => new ProjectionRebuilder(
                 x.GetRequiredService<IDomainObjectRepository>(),
                 x.GetRequiredService<IImmediateConventionDenormalizerPipeline>()));

@@ -1,11 +1,12 @@
 ﻿using BE.CQRS.Domain.Conventions;
 using BE.CQRS.Domain.DomainObjects;
 using BE.Riot.Events;
+using BE.Riot.MatchHistories;
 using Microsoft.Extensions.Logging;
 
 namespace BE.Riot.EventSource;
 
-public sealed class PlayerMatchHistoryDomainObject(string id, IRiotClient client, ILogger<PlayerMatchHistoryDomainObject> logger) : DomainObjectBase(id)
+public sealed class PlayerMatchHistoryDomainObject(string id, IMatchHistoryUpdater matchHistoryUpdater, ILogger<PlayerMatchHistoryDomainObject> logger) : DomainObjectBase(id)
 {
     private readonly ILogger<PlayerMatchHistoryDomainObject> logger = logger;
 
@@ -23,10 +24,10 @@ public sealed class PlayerMatchHistoryDomainObject(string id, IRiotClient client
     [UpdateWithoutHistory]
     public async Task On(ReadPlayerMatchHistory cmd)
     {
-        var matches = await client.GetLatestMatchIdsByPuuId(cmd.DomainObjectId,99);
+        var matches = await matchHistoryUpdater.UpdateSinceLatestStoredAsync(this.Id, CancellationToken.None);
 
         logger.LogDebug("{count} matches read", matches.Count);
         RaiseEvent<SummonerMatchesRead>(x =>
-            x.MatchIds = matches.Select(x => x.Value).ToHashSet());
+            x.MatchIds = matches.ToHashSet());
     }
 }

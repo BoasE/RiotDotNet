@@ -1,39 +1,24 @@
-﻿using BE.CQRS.Domain;
-using BE.CQRS.Domain.Commands;
-using BE.Riot;
-using BE.Riot.Console;
-using BE.Riot.EventSource;
+﻿using BE.Riot.Console;
+using BE.Riot.Console.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using Spectre.Console;
+using Spectre.Console.Extensions;
 
 var services = Startup.ConfigureServices();
 var provider = services.BuildServiceProvider();
-var client = provider.GetRequiredService<IRiotClient>();
 
-Console.Write("Summoner Name:");
-var summonerName = Console.ReadLine();
+var summonerName = AnsiConsole.Ask<string>("Summoner Name:");
+var tagLine = AnsiConsole.Ask<string>("TagLine: #");
+tagLine = tagLine.Replace("#", "");
 
-Console.Write("TagLine:");
-var tagLine = Console.ReadLine();
+var cmd = provider.GetRequiredService<IReadPlayerHistoryCommand>();
 
-var puuid = await client.GetPuuIdBy(summonerName, tagLine);
+string? puuid = null;
 
-if (!puuid.Found)
-{
-    Console.WriteLine("User not found");
-    return;
-}
-
-var repo = provider.GetRequiredService<IDomainObjectRepository>();
-var bus = provider.GetRequiredService<ICommandBus>();
-if (!await repo.Exists<PlayerMatchHistoryDomainObject>(puuid.Puiid.Value))
-{
-    await bus.EnqueueAsync(new CreatePlayerHistory(puuid.Puiid.Value)
+await AnsiConsole.Status()
+    .StartAsync("Loading player data...", async ctx =>
     {
-        SummonerName = summonerName,
-        TagLine = tagLine,
-        PuuId = puuid.Puiid.Value
+        puuid = await cmd.Execute(summonerName, tagLine).Spinner();
     });
-}
 
-await bus.EnqueueAsync(new ReadPlayerMatchHistory(puuid.Puiid.Value));
-Console.WriteLine("Puuid: " + puuid.Puiid.Value);
+AnsiConsole.MarkupLine($"[green]Puuid:[/] {puuid}");

@@ -1,6 +1,6 @@
 ﻿using BE.CQRS.Domain.Commands;
 
-namespace BE.Riot;
+namespace BE.Riot.MatchHistories;
 
 public sealed class ReadPlayerMatchHistory : CommandBase
 {

@@ -1,12 +1,13 @@
-﻿using System.Net.Http.Headers;
-using BE.CQRS.Domain.Configuration;
+﻿using BE.Riot.Console.Commands;
 using BE.Riot.EventSource.Bootstrap;
 using BE.Riot.Http;
+using BE.Riot.MatchHistories;
+using BE.Riot.Mongo.CompletedGameDetailsCache;
+using BE.Riot.Mongo.SummonerMatchHistories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 
 namespace BE.Riot.Console;
 
@@ -41,25 +42,28 @@ public static class Startup
         {
             builder.AddConfiguration(configuration.GetSection("Logging"));
             builder.AddConsole();
-     
         });
 
-        services.AddSingleton<IRiotClient>(sp =>
-        {
-            RiotAccountOptions opts = sp.GetRequiredService<IOptions<RiotAccountOptions>>().Value;
-            if (string.IsNullOrWhiteSpace(opts.Host))
-                throw new InvalidOperationException("Riot:Account:Host ist nicht konfiguriert.");
+        services
+            .AddSingleton<IReadPlayerHistoryCommand, ReadPlayerHistoryCommand>()
+            .AddSingleton<ICompletedGameDetailCache, MongoCompletedGameDetailsCache>()
+            .AddSingleton<IMatchHistoryUpdater, MatchHistoryUpdater>()
+            .AddSingleton<ISummonerMatchHistoryIdsGateway, MongoSummonerMatchHistoryGateway>()
+            .AddSingleton<IRiotClient>(sp =>
+            {
+                RiotAccountOptions opts = sp.GetRequiredService<IOptions<RiotAccountOptions>>().Value;
+                if (string.IsNullOrWhiteSpace(opts.Host))
+                    throw new InvalidOperationException("Riot:Account:Host ist nicht konfiguriert.");
 
-            if (string.IsNullOrWhiteSpace(opts.ApiKey))
-                throw new InvalidOperationException("Riot:Account:ApiKey ist nicht konfiguriert.");
+                if (string.IsNullOrWhiteSpace(opts.ApiKey))
+                    throw new InvalidOperationException("Riot:Account:ApiKey ist nicht konfiguriert.");
 
-            // Hinweis: Passen Sie den Konstruktor an die tatsächliche RiotClient-API an.
-            return new RiotHttpClient(opts.Host, opts.ApiKey);
-        });
+                // Hinweis: Passen Sie den Konstruktor an die tatsächliche RiotClient-API an.
+                return new RiotHttpClient(opts.Host, opts.ApiKey, sp.GetRequiredService<ICompletedGameDetailCache>());
+            });
 
         services.AddCqrs(configuration);
-        
-        
+
         services.AddCqrsProjections(configuration);
         return services;
     }

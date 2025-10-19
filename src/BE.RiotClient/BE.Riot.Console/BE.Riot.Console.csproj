@@ -11,6 +11,7 @@
       <ProjectReference Include="..\BE.Riot.EventSource\BE.Riot.EventSource.csproj" />
       <ProjectReference Include="..\BE.Riot.Events\BE.Riot.Events.csproj" />
       <ProjectReference Include="..\BE.Riot.HttpClient\BE.Riot.HttpClient.csproj" />
+      <ProjectReference Include="..\BE.Riot.Mongo\BE.Riot.Mongo.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,6 +23,14 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="9.0.9" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.9" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.9" />
+      <PackageReference Include="Spectre.Console" Version="0.51.1" />
+      <PackageReference Include="Spectre.Console.Cli" Version="0.51.1" />
+      <PackageReference Include="Spectre.Console.Extensions.Progress" Version="1.0.0" />
+      <PackageReference Include="Spectre.Console.Extensions.Table" Version="1.0.0" />
+      <PackageReference Include="System.CommandLine" Version="2.0.0-rc.1.25451.107" />
+      <PackageReference Include="System.CommandLine.Hosting" Version="0.4.0-alpha.25306.1" />
+      <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta5.25306.1" />
+      <PackageReference Include="System.CommandLine.Rendering" Version="0.4.0-alpha.25306.1" />
     </ItemGroup>
 
     <ItemGroup>

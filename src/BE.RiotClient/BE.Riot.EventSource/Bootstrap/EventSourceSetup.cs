@@ -15,7 +15,10 @@ namespace BE.Riot.EventSource.Bootstrap
             Console.WriteLine("Adding CQRS...");
             string eventSecret = "0mDJVERJ34e4qLC6JYvT!$_d#+54d";
             string url = config["events:db:host"];
-            string db = config["events:db:name"];
+            string dbName = config["events:db:name"];
+
+            var client = new MongoClient(url);
+            var db = client.GetDatabase(dbName);
 
             Console.WriteLine($"ES DB: {url} - {db}");
 
@@ -23,12 +26,14 @@ namespace BE.Riot.EventSource.Bootstrap
                 .SetEventSecret(eventSecret)
                 .SetDomainObjectAssemblies(typeof(PlayerMatchHistoryDomainObject).Assembly);
 
-            Func<IMongoDatabase> func = () => new MongoClient(url).GetDatabase(db);
             services
                 .AddServiceProviderDomainObjectAcitvator()
-                .AddMongoDomainObjectRepository(func)
+                .AddMongoDomainObjectRepository(db)
                 .AddConventionBasedInMemoryCommandBus(esconfig)
                 .AddEventSource(esconfig);
+
+            services.AddSingleton<IEventSourceData>(x
+                => new EventSourceData(client, db));
 
             Console.WriteLine("CQRS added");
             return services;
